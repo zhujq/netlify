@@ -90,15 +90,13 @@ func ClientIP(r *http.Request) string {
 // ClientPublicIP 尽最大努力实现获取客户端公网 IP 的算法。
 // 解析 X-Real-IP 和 X-Forwarded-For 以便于反向代理（nginx 或 haproxy）可以正常工作。
 func ClientPublicIP(r events.APIGatewayProxyRequest) string {
-	var ip string
-	for _, ip = range strings.Split((r.Headers)["X-Forwarded-For"], ",") {
-		if ip = strings.TrimSpace(ip); ip != "" && !HasLocalIPAddr(ip) {
-			return ip
-		}
-	}
 
-	if ip = strings.TrimSpace((r.Headers)["X-Real-Ip"]); ip != "" && !HasLocalIPAddr(ip) {
-		return ip
+	hds := r.Headers
+	if len(hds["X-Forwarded-For"]) > 0 {
+		return hds["X-Forwarded-For"]
+	}
+	if len(hds["X-Real-Ip"]) > 0 {
+		return hds["X-Real-Ip"]
 	}
 
 	/*	if ip = RemoteIP(r); !HasLocalIPAddr(ip) {
