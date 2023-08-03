@@ -167,14 +167,12 @@ func Long2IP(i uint) (net.IP, error) {
 func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	pubip := ClientPublicIP(request)
-	/*
-	   str := "Headers：\r\n"
-
-	   	for k, v := range request.Headers {
-	   		str += (k + ":" + v + "\r\n")
-	   	}
-	*/if pubip == "" {
-		return events.APIGatewayProxyResponse{Body: "I can't get your public ip! ", StatusCode: 200}, nil
+	str := "Headers：\r\n"
+	for k, v := range request.Headers {
+		str += (k + ":" + v + "\r\n")
+	}
+	if pubip == "" {
+		return events.APIGatewayProxyResponse{Body: str, StatusCode: 200}, nil
 	} else {
 		var ipinfo ResIpinfoBody
 		ipinfo.Pubip = pubip
