@@ -95,8 +95,14 @@ func ClientPublicIP(r events.APIGatewayProxyRequest) string {
 	if len(hds["X-Forwarded-For"]) > 0 {
 		return hds["X-Forwarded-For"]
 	}
+	if len(hds["x-forwarded-for"]) > 0 {
+		return hds["x-forwarded-for"]
+	}
 	if len(hds["X-Real-Ip"]) > 0 {
 		return hds["X-Real-Ip"]
+	}
+	if len(hds["x-real-ip"]) > 0 {
+		return hds["x-real-ip"]
 	}
 
 	/*	if ip = RemoteIP(r); !HasLocalIPAddr(ip) {
