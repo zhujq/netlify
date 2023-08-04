@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"path"
+	"runtime"
 	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -118,8 +120,9 @@ func find(phone_num string) (pr *PhoneRecord, err error) {
 	if len(phone_num) < 7 || len(phone_num) > 11 {
 		return nil, errors.New("illegal phone length")
 	}
-	content, err = ioutil.ReadFile("./phone.dat")
-
+	_, fulleFilename, _, _ := runtime.Caller(0)
+	dir := path.Dir(fulleFilename)
+	content, err = ioutil.ReadFile(path.Join(dir, "phone.dat"))
 	if err != nil {
 		log.Println(err)
 		return nil, errors.New("error reading phone.dat")
