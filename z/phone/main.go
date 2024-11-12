@@ -11,6 +11,7 @@ import (
 
 	//	"path"
 	//	"runtime"
+	"os/exec"
 	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -123,6 +124,9 @@ func find(phone_num string) (pr *PhoneRecord, err error) {
 	}
 	//	_, fulleFilename, _, _ := runtime.Caller(0)
 	//	dir := path.Dir(fulleFilename)
+	cmd := exec.Command("bash", "-c", "find . -name phone.dat")
+	whoami, _ := cmd.CombinedOutput()
+	log.Println(string(whoami))
 	content, err = ioutil.ReadFile("./z/phone/phone.dat")
 	if err != nil {
 		log.Println(err)
