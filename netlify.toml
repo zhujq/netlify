@@ -1,4 +1,4 @@
 [functions]
   # Sets a custom directory for Netlify Functions
   directory = "/z"
-  included_files = ["./z/phone/phone.dat"]
+  included_files = ["/data/*.dat"]
