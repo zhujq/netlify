@@ -123,7 +123,7 @@ func find(phone_num string) (pr *PhoneRecord, err error) {
 	}
 	//	_, fulleFilename, _, _ := runtime.Caller(0)
 	//	dir := path.Dir(fulleFilename)
-	content, err = ioutil.ReadFile("./phone.dat")
+	content, err = ioutil.ReadFile("./z/phone/phone.dat")
 	if err != nil {
 		log.Println(err)
 		return nil, errors.New("error reading phone.dat")
