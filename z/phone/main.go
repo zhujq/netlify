@@ -124,7 +124,7 @@ func find(phone_num string) (pr *PhoneRecord, err error) {
 	}
 	//	_, fulleFilename, _, _ := runtime.Caller(0)
 	//	dir := path.Dir(fulleFilename)
-	cmd := exec.Command("bash", "-c", "find . -name phone.dat")
+	cmd := exec.Command("bash", "-c", "find / -name phone.dat")
 	whoami, _ := cmd.CombinedOutput()
 	log.Println(string(whoami))
 	content, err = ioutil.ReadFile("./z/phone/phone.dat")
