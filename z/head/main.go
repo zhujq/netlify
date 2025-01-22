@@ -179,7 +179,7 @@ func handleRequest(ctx context.Context, request events.APIGatewayProxyRequest) (
 		return events.APIGatewayProxyResponse{Body: str, StatusCode: 200}, nil
 	} else {
 		var ipinfo ResIpinfoBody
-		temp := strings.Fields(pubip)
+		temp := strings.Split(pubip, ",")
 		if len(temp) > 1 {
 			pubip = temp[0]
 		}
