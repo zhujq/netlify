@@ -3,17 +3,14 @@ package main
 import (
 	"bytes"
 	"context"
+	_ "embed"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"log"
-	_ "embed"
 
 	//	"path"
 	//	"runtime"
-	"net/http"
 	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -128,16 +125,16 @@ func find(phone_num string) (pr *PhoneRecord, err error) {
 	}
 	//	_, fulleFilename, _, _ := runtime.Caller(0)
 	//	dir := path.Dir(fulleFilename)
-   /*
-	resp, _ := http.Get("https://v.19790526.xyz/data/phone.dat")
-	defer resp.Body.Close()
+	/*
+		resp, _ := http.Get("https://v.19790526.xyz/data/phone.dat")
+		defer resp.Body.Close()
 
-	content, err = io.ReadAll(resp.Body)
-	if err != nil {
-		log.Println(err)
-		return nil, errors.New("error reading phone.dat")
-	}
-    */
+		content, err = io.ReadAll(resp.Body)
+		if err != nil {
+			log.Println(err)
+			return nil, errors.New("error reading phone.dat")
+		}
+	*/
 	total_len = int32(len(content))
 	firstoffset = get4(content[INT_LEN : INT_LEN*2])
 
