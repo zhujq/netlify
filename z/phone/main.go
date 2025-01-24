@@ -6,8 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
+	_ "embed"
 
 	//	"path"
 	//	"runtime"
@@ -17,6 +19,9 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
+
+//go:embed phone.dat
+var content []byte
 
 const (
 	CMCC               byte = iota + 0x01 //中国移动
@@ -41,7 +46,6 @@ type PhoneRecord struct {
 }
 
 var (
-	content     []byte
 	CardTypemap = map[byte]string{
 		CMCC:   "中国移动",
 		CUCC:   "中国联通",
@@ -124,16 +128,16 @@ func find(phone_num string) (pr *PhoneRecord, err error) {
 	}
 	//	_, fulleFilename, _, _ := runtime.Caller(0)
 	//	dir := path.Dir(fulleFilename)
-
+   /*
 	resp, _ := http.Get("https://v.19790526.xyz/data/phone.dat")
 	defer resp.Body.Close()
 
-	content, err = ioutil.ReadAll(resp.Body)
+	content, err = io.ReadAll(resp.Body)
 	if err != nil {
 		log.Println(err)
 		return nil, errors.New("error reading phone.dat")
 	}
-
+    */
 	total_len = int32(len(content))
 	firstoffset = get4(content[INT_LEN : INT_LEN*2])
 
